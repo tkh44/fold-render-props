@@ -9,7 +9,7 @@
  ])
 */
 export default function foldRenderProps(
-    list,
+  list,
   { renderPropName = 'children' } = {}
 ) {
   /*
