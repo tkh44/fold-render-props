@@ -1,0 +1,90 @@
+{
+  "name": "fold-render-props",
+  "version": "0.0.1",
+  "description": "Fold multiple render prop components into a single component.",
+  "main": "dist/microbundle.js",
+  "source": "src/index.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "test": "test",
+    "release": "npm run test && npm run build && npm version patch && npm publish && git push --tags"
+  },
+  "keywords": [
+    "react",
+    "render",
+    "render-props"
+  ],
+  "author": "Kye Hohenberger",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=14"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^22.2.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^19.0.2",
+    "microbundle": "^0.4.3",
+    "prettier": "^1.10.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "standard": "^10.0.2"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard",
+      "standard-react",
+      "prettier",
+      "prettier/react"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "semi": false
+        }
+      ],
+      "react/prop-types": 0,
+      "react/no-unused-prop-types": 0,
+      "standard/computed-property-even-spacing": 0,
+      "no-template-curly-in-string": 0
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.test.js"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "/dist/"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
+  }
+}
