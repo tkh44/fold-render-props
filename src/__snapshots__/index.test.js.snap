@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fold-render-props basic 1`] = `
+<pre>
+  {
+  "name": "⒞&lt;big&gt;⒝⒜ABC⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜ABC⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜ABC⒜⒝&lt;/big&gt;⒞"
+}
+</pre>
+`;
