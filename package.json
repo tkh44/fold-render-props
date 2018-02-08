@@ -2,7 +2,9 @@
   "name": "fold-render-props",
   "version": "0.0.1",
   "description": "Fold multiple render prop components into a single component.",
-  "main": "dist/microbundle.js",
+  "browser": "dist/fold-render-props.umd.js",
+  "module": "dist/fold-render-props.m.js",
+  "main": "dist/fold-render-props.js",
   "source": "src/index.js",
   "scripts": {
     "build": "microbundle",
@@ -21,8 +23,10 @@
     "react": ">=14"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.2.1",
     "babel-jest": "^22.2.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react": "^1.1.7",
     "eslint-config-standard": "^11.0.0-beta.0",
@@ -30,7 +34,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
     "eslint-plugin-standard": "^3.0.1",
-    "jest": "^19.0.2",
+    "jest": "^22.2.1",
     "microbundle": "^0.4.3",
     "prettier": "^1.10.2",
     "react": "^16.2.0",

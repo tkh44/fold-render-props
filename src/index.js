@@ -33,15 +33,15 @@ export default function foldRenderProps(
     - name = "bob"
     - children = result => <pre>{JSON.stringify(result)}</pre>
 
-    <Folder3 name="bob" children={children} />
-      <Folder2 {{ ...props, children: (x) => render1}/>
-        <Folder1 {{ ...props, children: (x) => render2}/>
-          <Folder0 {{ ...props, children: (x) => render3}/>
+    <Folder name="bob" children={children} />
+      <A {{ ...props, children: (x) => render1}/>
+        <B {{ ...props, children: (x) => render2}/>
+          <C {{ ...props, children: (x) => render3}/>
 
     // In order to correctly order render fn's we need to reverse the list of renders
     // The basic idea is to reverse and turn the structure "inside out".
 
-    // Reverse
+    // List
     [
       (result, render) => (
         <ComponentA name={'⒜' + result.name + '⒜'} children={render} />
@@ -51,20 +51,6 @@ export default function foldRenderProps(
       ),
       (result, render) => (
         <ComponentC name={'⒞' + result.name + '⒞'} children={render} />
-      )
-    ]
-
-    =>
-
-    [
-      (result, render) => (
-        <ComponentC name={'⒞' + result.name + '⒞'} children={render} />
-      ),
-      (result, render) => (
-        <ComponentB name={'⒝' + result.name + '⒝'} children={render} />
-      ),
-      (result, render) => (
-        <ComponentA name={'⒜' + result.name + '⒜'} children={render} />
       )
     ]
 
@@ -74,15 +60,15 @@ export default function foldRenderProps(
     // Reducer Default Value (value of `Child` on first iteration)
     Folder0 = ({ children, ...rest }) => children(rest)
 
-    // First item in reversed list
+    // First item in list
     Child = Folder0
     renderer = (result, render) => (
-      <ComponentC name={'⒞' + result.name + '⒞'} children={render} />
+      <ComponentA name={'⒜' + result.name + '⒜'} children={render} />
     )
     Folder1 = (props) =>
       <Child {{ ...props, children: (x) => renderer(x, props.children)} />
 
-    // Second item in reversed list
+    // Second item in list
     Child = Folder1
     renderer = (result, render) => (
       <ComponentB name={'⒝' + result.name + '⒝'} children={render} />
@@ -90,10 +76,10 @@ export default function foldRenderProps(
     Folder2 = (props) =>
       <Child {{ ...props, children: (x) => renderer(x, props.children)} />
 
-    // Third item in reversed list
+    // Third item in list
     Child = Folder2
     renderer = (result, render) => (
-      <ComponentA name={'⒜' + result.name + '⒜'} children={render} />
+      <ComponentC name={'⒞' + result.name + '⒞'} children={render} />
     )
     Folder3 = (props) =>
       <Child {{ ...props, children: (x) => renderer(x, props.children)} />
@@ -130,22 +116,32 @@ export default function foldRenderProps(
     }
   */
 
+  const without = (obj, keys) => Object.keys(obj)
+      .reduce((out, key) => {
+        if (keys.indexOf(key) > -1) {
+          out[key] = obj[key]
+        }
+        return out
+      }, {})
+
   const UnwrapChildren = props => {
-    const { children, render, ...rest } = props
-    return (props[renderPropName] || render || children)(rest)
+    return (props[renderPropName] || props.render || props.children)(
+      without(props, [renderPropName, 'render', 'children'])
+    )
   }
 
   const reducer = (Child, renderer) => {
     const Folder = props => {
-      return Child({
-        ...props,
-        [renderPropName]: x => {
-          return renderer(x, props[renderPropName])
-        }
-      })
+      return Child(
+        Object.assign({}, props, {
+          [renderPropName]: x => {
+            return renderer(x, props[renderPropName])
+          }
+        })
+      )
     }
     return Folder
   }
 
-  return list.reverse().reduce(reducer, UnwrapChildren)
+  return list.reduce(reducer, UnwrapChildren)
 }
