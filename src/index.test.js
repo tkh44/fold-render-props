@@ -5,7 +5,6 @@ import folder from './index'
 const TEST_RENDER_PROP = 'testRenderProp'
 
 const ComponentA = props => {
-  console.log('A', typeof props[TEST_RENDER_PROP], props)
   return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.toUpperCase()
   })
@@ -14,7 +13,6 @@ const ComponentA = props => {
 ComponentA.displayName = 'A'
 
 const ComponentB = props => {
-  console.log(typeof props[TEST_RENDER_PROP])
   return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.big()
   })
@@ -23,7 +21,6 @@ const ComponentB = props => {
 ComponentB.displayName = 'B'
 
 const ComponentC = props => {
-  console.log(props, typeof props[TEST_RENDER_PROP])
   return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.repeat(3)
   })
@@ -31,7 +28,7 @@ const ComponentC = props => {
 ComponentC.displayName = 'C'
 
 describe('fold-render-props', () => {
-  const propNames = [TEST_RENDER_PROP]
+  const propNames = ['render', 'children', TEST_RENDER_PROP]
   propNames.forEach(renderProp => {
     const Folder = folder(
       [

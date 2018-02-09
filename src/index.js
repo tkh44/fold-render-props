@@ -115,17 +115,7 @@ export default function foldRenderProps(
       )
     }
   */
-
-  // const without = (obj, keys) =>
-  //   Object.keys(obj).reduce((out, key) => {
-  //     if (keys.indexOf(key) === -1) {
-  //       out[key] = obj[key]
-  //     }
-  //     return out
-  //   }, {})
-
   const renderNameList = [renderPropName, 'render', 'children']
-
   const getRenderFnName = props => {
     for (let i = 0; i < renderNameList.length; ++i) {
       if (typeof props[renderNameList[i]] === 'function') {
