@@ -16,6 +16,8 @@ npm i fold-render-props -S
 ## Basic Example
 
 ```javascript
+import folder from 'fold-render-props'
+
 const ComponentA = props => {
   return props.children({
     name: props.name.toUpperCase()
