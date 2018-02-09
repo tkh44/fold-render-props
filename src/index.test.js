@@ -1,54 +1,73 @@
-/* env jest */
-
 import React from 'react'
 import renderer from 'react-test-renderer'
 import folder from './index'
 
+const TEST_RENDER_PROP = 'testRenderProp'
+
 const ComponentA = props => {
-  return props.children({
+  console.log('A', typeof props[TEST_RENDER_PROP], props)
+  return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.toUpperCase()
   })
 }
 
 ComponentA.displayName = 'A'
 
-const ComponentB = props =>
-  props.children({
+const ComponentB = props => {
+  console.log(typeof props[TEST_RENDER_PROP])
+  return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.big()
   })
+}
 
 ComponentB.displayName = 'B'
 
 const ComponentC = props => {
-  return props.children({
+  console.log(props, typeof props[TEST_RENDER_PROP])
+  return (props.children || props.render || props[TEST_RENDER_PROP])({
     name: props.name.repeat(3)
   })
 }
 ComponentC.displayName = 'C'
 
-const Folder = folder([
-  (result, render) => (
-    <ComponentA name={'⒜' + result.name + '⒜'} children={render} />
-  ),
-  (result, render) => (
-    <ComponentB name={'⒝' + result.name + '⒝'} children={render} />
-  ),
-  (result, render) => (
-    <ComponentC name={'⒞' + result.name + '⒞'} children={render} />
-  )
-])
-
 describe('fold-render-props', () => {
-  test('basic', () => {
-    const tree = renderer
-      .create(
-        <Folder name="abc">
-          {result => {
-            return <pre>{JSON.stringify(result, null, 2)}</pre>
-          }}
-        </Folder>
-      )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+  const propNames = [TEST_RENDER_PROP]
+  propNames.forEach(renderProp => {
+    const Folder = folder(
+      [
+        (result, render) =>
+          React.createElement(ComponentA, {
+            name: '⒜' + result.name + '⒜',
+            [renderProp]: render
+          }),
+        (result, render) =>
+          React.createElement(ComponentB, {
+            name: '⒝' + result.name + '⒝',
+            [renderProp]: render
+          }),
+        (result, render) =>
+          React.createElement(ComponentC, {
+            name: '⒞' + result.name + '⒞',
+            [renderProp]: render
+          })
+      ],
+      {
+        renderPropName: renderProp
+      }
+    )
+
+    test('basic ' + renderProp, () => {
+      const tree = renderer
+        .create(
+          React.createElement(Folder, {
+            name: renderProp,
+            [renderProp]: result => {
+              return <pre>{JSON.stringify(result, null, 2)}</pre>
+            }
+          })
+        )
+        .toJSON()
+      expect(tree).toMatchSnapshot()
+    })
   })
 })

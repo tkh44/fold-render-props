@@ -116,28 +116,45 @@ export default function foldRenderProps(
     }
   */
 
-  const without = (obj, keys) => Object.keys(obj)
-      .reduce((out, key) => {
-        if (keys.indexOf(key) > -1) {
-          out[key] = obj[key]
-        }
-        return out
-      }, {})
+  // const without = (obj, keys) =>
+  //   Object.keys(obj).reduce((out, key) => {
+  //     if (keys.indexOf(key) === -1) {
+  //       out[key] = obj[key]
+  //     }
+  //     return out
+  //   }, {})
+
+  const renderNameList = [renderPropName, 'render', 'children']
+
+  const getRenderFnName = props => {
+    for (let i = 0; i < renderNameList.length; ++i) {
+      if (typeof props[renderNameList[i]] === 'function') {
+        return renderNameList[i]
+      }
+    }
+
+    return 'children'
+  }
 
   const UnwrapChildren = props => {
-    return (props[renderPropName] || props.render || props.children)(
-      without(props, [renderPropName, 'render', 'children'])
-    )
+    const fn = props[getRenderFnName(props)]
+    return fn(props)
   }
 
   const reducer = (Child, renderer) => {
     const Folder = props => {
+      const name = getRenderFnName(props)
       return Child(
-        Object.assign({}, props, {
-          [renderPropName]: x => {
-            return renderer(x, props[renderPropName])
+        Object.assign(
+          {},
+          props,
+          { children: null },
+          {
+            [name]: x => {
+              return renderer(x, props[name])
+            }
           }
-        })
+        )
       )
     }
     return Folder

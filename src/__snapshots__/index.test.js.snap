@@ -7,3 +7,35 @@ exports[`fold-render-props basic 1`] = `
 }
 </pre>
 `;
+
+exports[`fold-render-props basic 2`] = `
+<pre>
+  {
+  "name": "⒞⒝⒜ABC⒜⒝⒞"
+}
+</pre>
+`;
+
+exports[`fold-render-props basic children 1`] = `
+<pre>
+  {
+  "name": "⒞&lt;big&gt;⒝⒜CHILDREN⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜CHILDREN⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜CHILDREN⒜⒝&lt;/big&gt;⒞"
+}
+</pre>
+`;
+
+exports[`fold-render-props basic render 1`] = `
+<pre>
+  {
+  "name": "⒞&lt;big&gt;⒝⒜RENDER⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜RENDER⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜RENDER⒜⒝&lt;/big&gt;⒞"
+}
+</pre>
+`;
+
+exports[`fold-render-props basic testRenderProp 1`] = `
+<pre>
+  {
+  "name": "⒞&lt;big&gt;⒝⒜TESTRENDERPROP⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜TESTRENDERPROP⒜⒝&lt;/big&gt;⒞⒞&lt;big&gt;⒝⒜TESTRENDERPROP⒜⒝&lt;/big&gt;⒞"
+}
+</pre>
+`;
