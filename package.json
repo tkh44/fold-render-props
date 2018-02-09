@@ -1,8 +1,7 @@
 {
   "name": "fold-render-props",
-  "version": "0.0.2",
-  "description":
-    "Fold multiple render prop components into a single component.",
+  "version": "0.0.3",
+  "description": "Fold multiple render prop components into a single component.",
   "browser": "dist/fold-render-props.umd.js",
   "module": "dist/fold-render-props.m.js",
   "main": "dist/fold-render-props.js",
@@ -11,10 +10,13 @@
     "build": "microbundle",
     "dev": "microbundle watch",
     "test": "jest --ci",
-    "release":
-      "npm run test && npm run build && npm version patch && npm publish && git push --tags"
+    "release": "npm run test && npm run build && npm version patch && npm publish && git push --tags"
   },
-  "keywords": ["react", "render", "render-props"],
+  "keywords": [
+    "react",
+    "render",
+    "render-props"
+  ],
   "author": "Kye Hohenberger",
   "license": "MIT",
   "peerDependencies": {
@@ -44,13 +46,24 @@
     "react-test-renderer": "^16.2.0",
     "standard": "^10.0.2"
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "directories": {
     "test": "tests"
   },
   "eslintConfig": {
-    "extends": ["standard", "standard-react", "prettier", "prettier/react"],
-    "plugins": ["jest", "prettier"],
+    "extends": [
+      "standard",
+      "standard-react",
+      "prettier",
+      "prettier/react"
+    ],
+    "plugins": [
+      "jest",
+      "prettier"
+    ],
     "parser": "babel-eslint",
     "rules": {
       "prettier/prettier": [
@@ -71,7 +84,9 @@
   },
   "standard": {
     "parser": "babel-eslint",
-    "ignore": ["/dist/"]
+    "ignore": [
+      "/dist/"
+    ]
   },
   "jest": {
     "transform": {
