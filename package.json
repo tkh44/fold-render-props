@@ -9,7 +9,7 @@
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
-    "test": "test",
+    "test": "jest --ci",
     "release": "npm run test && npm run build && npm version patch && npm publish && git push --tags"
   },
   "keywords": [
