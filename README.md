@@ -59,7 +59,7 @@ const MyComponent = (props) => (
 ```
 <div>
   <pre>
-    { "name": "⒜<BIG>⒝⒞THING⒞⒞THING⒞⒞THING⒞⒝</BIG>⒜" }
+    { "name": "⒞<big>⒝⒜THING⒜⒝</big>⒞⒞<big>⒝⒜THING⒜⒝</big>⒞⒞<big>⒝⒜THING⒜⒝</big>⒞" }
   </pre>
 </div>
 ```
