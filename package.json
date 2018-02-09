@@ -1,6 +1,6 @@
 {
   "name": "fold-render-props",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fold multiple render prop components into a single component.",
   "browser": "dist/fold-render-props.umd.js",
   "module": "dist/fold-render-props.m.js",
